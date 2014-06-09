@@ -23,10 +23,11 @@ in this repo, there is also a simple example included in the Unity package.
 
 ## Compiling
 
-I've left the LitJson csproj intact so you can compile a dll and run the 
-tests. When your ready to use the library in your project I recommend you import 
-the uncompiled source as there are some #if directives in UnityPlatform.cs 
-that help make the library work on WinRT (and possibly other platforms in the future).
+The LitJson csproj can be used to compile a dll and run the tests.
+If you intend to use the library in your Unity3D project I recommend 
+you import the uncompiled source as there are some #if directives in 
+Platform.cs that help make the library work on WinRT (and possibly 
+other platforms in the future).
 
 ```
 Compiler Directives
