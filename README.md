@@ -28,6 +28,19 @@ tests. When your ready to use the library in your project I recommend you import
 the uncompiled source as there are some #if directives in UnityPlatform.cs 
 that help make the library work on WinRT (and possibly other platforms in the future).
 
+```
+Compiler Directives
+
+JSON_STANDALONE		// Compile without Unity3D dependencies.
+
+JSON_WINRT			// Compile with WinRT compatibility fix. This will
+					// force compilation in Unity3D even if UNITY_METRO
+					// is false. It is recommended you only use this if
+					// you are using JSON_STANDALONE and are building
+					// for WindowsRT
+
+```
+
 ## Tests
 
 This library comes with a set of unit tests using the [NUnit](http://www.nunit.org/) framework.

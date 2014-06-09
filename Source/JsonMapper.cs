@@ -306,7 +306,13 @@ public class JsonMapper {
 		Type underlyingType = Nullable.GetUnderlyingType(instType);
 		Type valueType = underlyingType ?? instType;
 		if (reader.Token == JsonToken.Null) {
+			#if JSON_WINRT || (UNITY_METRO && !UNITY_EDITOR)
+			/* IsClass is made a getter here as a comparability
+			patch for WinRT build targets, see Platform.cs */
+			if (instType.IsClass() || underlyingType != null) {
+			#else
 			if (instType.IsClass || underlyingType != null) {
+			#endif
 				return null;
 			}
 			throw new JsonException(string.Format("Can't assign null to an instance of type {0}", instType));
@@ -326,7 +332,13 @@ public class JsonMapper {
 				return importer(reader.Value);
 			}
 			// Maybe it's an enum
+			#if JSON_WINRT || (UNITY_METRO && !UNITY_EDITOR)
+			/* IsClass is made a getter here as a comparability
+			patch for WinRT build targets, see Platform.cs */
+			if (valueType.IsEnum()) {
+			#else
 			if (valueType.IsEnum) {
+			#endif
 				return Enum.ToObject(valueType, reader.Value);
 			}
 			// Try using an implicit conversion operator
