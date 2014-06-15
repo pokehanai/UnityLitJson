@@ -253,6 +253,11 @@ public class JsonMapper {
 		if (customFactoryTable.TryGetValue(type, out factory)) {
 			return factory();
 		}
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_IPHONE || UNITY_ANDROID
+		if (typeof(UnityEngine.ScriptableObject).IsAssignableFrom(type)) {
+			return UnityEngine.ScriptableObject.CreateInstance(type);
+		}
+		#endif
 		// construct the new instance with the default constructor (if present), handles structs as well
 		BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 		ConstructorInfo constructor = type.GetConstructor(flags, null, new Type[0], null);
